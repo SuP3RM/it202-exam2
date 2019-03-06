@@ -1,103 +1,112 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Exam 2</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  <style>
-      .template {
-        display: none;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>repl.it</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    .template {
+      display: none;
+    }
 
-      .Pass {
-        color: green;
-      }
+    .Pass {
+      color: green;
+    }
 
-      .Fail {
-        color: red;
-      }
-    </style>
+    .Fail {
+      color: red;
+    }
+  </style>
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- <div class="card template" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="list-group-item">Card title</h5>
-        <h6 class="badge-primary mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div> -->
+  <div class="card template" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
 
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Department:
-        <span class="badge badge-primary badge-pill">Badge number</span>
-      </li>
-    </ul>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="list-title">Cras justo odio</div>
+      <span class="badge badge-primary badge-pill">14</span>
+    </li>
+  </ul>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 
-    </script>
+  </script>
 
-    <script>
-      $(document).ready(function() {
+  <script>
+    $(document).ready(function() {
 
-        var url = "https://data.cityofchicago.org/resource/xzkq-xp2w.json?$limit=50";
+      var url = "https://data.cityofchicago.org/resource/xzkq-xp2w.json?$limit=5";
 
-        $.get(url, function(response) {
-          console.log(response);
+      $.get(url, function(response) {
+        console.log(response);
 
-          var data = response;
+        var data = response;
 
-          $.each(data, function(i, v) {
-            //console.log(i,v);
+        $.each(data, function(i, v) {
+          //console.log(i,v);
 
-            // clone card
-            var clone = $(".list-group").clone();
-            // update values
-            clone.find(".list-group-item").text(v.department);
+          // clone card
+          var clone = $(".template").clone();
+          var listClone = $(".list-group").clone();
 
+          // update values
+          clone.find(".card-title").text(v.department);
+          listClone.find(".list-title").text(v.department);
 
-
-            clone.find(".list-group-item").addClass(v.results);
-
-            clone.find(".list-group-item").attr("data-results", v.results);
-
-            clone.find(".badge-primary").text(v.count_department);
-
-            if (v.violations) {
-              //clone.find(".card-text").text(v.violations);
-            } else {
-              clone.find(".list-group-item").text("")
-            }
+          clone.find(".card-title").addClass(v.results);
+          listClone.find(".list-title").addClass(v.results);
 
 
+          clone.find(".card-title").addClass(v.results);
+
+          clone.find(".card-title").attr("data-results", v.results);
+
+          clone.find(".card-subtitle").text(v.count_department);
+          listClone.find(".badge").text(v.count_department);
+
+          clone.removeClass("template")
+          listClone.removeClass("list-group")
 
 
-            clone.removeClass("list-group")
+          // insert into DOM
+          $("body").append(clone);
+          $("body").append(listClone);
+
+        });
 
 
-            // insert into DOM
-            $("body").append(clone);
-
-          });
-
-
-        })
-
-
+      })
 
 
 
 
-      });
-    </script>
 
-  </body>
+
+    });
+  </script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+
+  </script>
+  </script>
+</body>
 
 </html>
